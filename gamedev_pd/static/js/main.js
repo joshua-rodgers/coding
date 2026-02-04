@@ -178,6 +178,10 @@ window.GameDevPD = {
     App,
     StorageManager,
     ProgressTracker,
-    Navigation,
-    QuarterAnimation
+    Navigation
 };
+
+// Add QuarterAnimation if it's loaded (only on arcade lobby)
+if (typeof QuarterAnimation !== 'undefined') {
+    window.GameDevPD.QuarterAnimation = QuarterAnimation;
+}
