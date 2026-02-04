@@ -1,5 +1,5 @@
 /* ============================================
-   DOMAIN PAGE STYLES
+   DOMAIN PAGE STYLES - Neon Arcade Theme
    ============================================ */
 
 .domain-page {
@@ -16,12 +16,13 @@
     justify-content: space-between;
     align-items: center;
     padding: var(--spacing-md);
-    background-color: var(--color-bg-medium);
-    border-bottom: 3px solid var(--color-primary);
+    background: var(--color-bg-card);
+    border-bottom: 1px solid var(--color-border);
     position: sticky;
     top: 0;
     z-index: 100;
     gap: var(--spacing-md);
+    backdrop-filter: blur(10px);
 }
 
 .nav-left,
@@ -40,20 +41,43 @@
 }
 
 .domain-label {
-    font-size: 0.7rem;
-    color: var(--color-tertiary);
+    font-size: 0.65rem;
+    color: var(--color-secondary);
     margin-bottom: 0.25rem;
+    text-shadow: 0 0 10px var(--color-shadow-cyan);
 }
 
 .page-counter {
-    font-size: 0.6rem;
-    color: var(--color-primary);
+    font-size: 0.55rem;
+    color: var(--color-text-secondary);
 }
 
 .nav-button {
-    font-size: 0.6rem;
-    padding: 0.7rem 1rem;
+    font-size: 0.55rem;
+    padding: 0.6rem 1rem;
     white-space: nowrap;
+    border-radius: var(--radius-pill);
+}
+
+#home-btn {
+    background: transparent;
+    border: 1px solid var(--color-border);
+}
+
+#home-btn:hover {
+    background: var(--gradient-button);
+    border-color: var(--color-primary);
+}
+
+#prev-btn,
+#next-btn {
+    background: var(--gradient-button);
+    border: none;
+}
+
+#prev-btn:hover,
+#next-btn:hover {
+    box-shadow: 0 0 20px var(--color-shadow-pink);
 }
 
 /* ============================================
@@ -80,16 +104,20 @@
 .placeholder-box {
     text-align: center;
     padding: var(--spacing-xl);
-    border: 3px dashed var(--color-primary);
-    background-color: var(--color-bg-medium);
+    border: 2px dashed var(--color-border);
+    background: var(--color-bg-card);
     border-radius: var(--radius-md);
     max-width: 600px;
+    backdrop-filter: blur(10px);
 }
 
 .placeholder-box h2 {
-    color: var(--color-primary);
+    background: var(--gradient-title);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     margin-bottom: var(--spacing-md);
-    font-size: 1.5rem;
+    font-size: 1.2rem;
 }
 
 .placeholder-box p {
@@ -97,23 +125,32 @@
     color: var(--color-text-dim);
 }
 
+.placeholder-box .pixel-text.small {
+    color: var(--color-text-secondary);
+}
+
 /* ============================================
    PROGRESS INDICATOR (bottom of page)
    ============================================ */
 .progress-indicator {
     padding: var(--spacing-md);
-    background-color: var(--color-bg-medium);
-    border-top: 3px solid var(--color-primary);
+    background: var(--color-bg-card);
+    border-top: 1px solid var(--color-border);
+    backdrop-filter: blur(10px);
 }
 
 .progress-bar-container {
     margin-bottom: var(--spacing-sm);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .progress-text {
     display: block;
     text-align: center;
     color: var(--color-text-secondary);
+    font-size: 0.5rem;
 }
 
 /* ============================================
@@ -122,6 +159,7 @@
 @media (max-width: 768px) {
     .nav-bar {
         flex-wrap: wrap;
+        padding: var(--spacing-sm);
     }
 
     .nav-center {
@@ -149,5 +187,6 @@
     .nav-button {
         width: 100%;
         text-align: center;
+        justify-content: center;
     }
 }

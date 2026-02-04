@@ -1,12 +1,12 @@
 /* ============================================
-   ARCADE LOBBY STYLES
+   ARCADE LOBBY STYLES - Neon Arcade Theme
    ============================================ */
 
 .arcade-lobby {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    padding: var(--spacing-lg);
+    padding: var(--spacing-md);
 }
 
 /* ============================================
@@ -14,25 +14,340 @@
    ============================================ */
 .arcade-header {
     text-align: center;
-    margin-bottom: var(--spacing-xl);
-    animation: slideUp 0.6s ease;
+    margin-bottom: var(--spacing-lg);
+    padding: var(--spacing-md) 0;
 }
 
 .arcade-title {
-    font-size: 2rem;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    margin-bottom: var(--spacing-xs);
+    letter-spacing: 0.15em;
+}
+
+/* Split color title effect */
+.title-neon {
     color: var(--color-primary);
-    margin-bottom: var(--spacing-sm);
     text-shadow:
         0 0 10px var(--color-primary),
         0 0 20px var(--color-primary),
-        0 0 30px var(--color-shadow);
-    letter-spacing: 0.1em;
+        0 0 40px var(--color-primary);
+}
+
+.title-arcade {
+    color: var(--color-secondary);
+    text-shadow:
+        0 0 10px var(--color-secondary),
+        0 0 20px var(--color-secondary),
+        0 0 40px var(--color-secondary);
 }
 
 .arcade-subtitle {
-    font-size: 0.8rem;
-    color: var(--color-tertiary);
-    letter-spacing: 0.2em;
+    font-size: 0.65rem;
+    color: var(--color-text-secondary);
+    letter-spacing: 0.3em;
+    margin-top: var(--spacing-xs);
+}
+
+/* ============================================
+   CATEGORY NAVIGATION
+   ============================================ */
+.category-nav {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
+    flex-wrap: wrap;
+}
+
+.category-btn {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.55rem;
+    padding: 0.8rem 1.5rem;
+    background: rgba(30, 30, 60, 0.6);
+    color: var(--color-text-primary);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-pill);
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    transition: all var(--transition-medium);
+    text-transform: uppercase;
+    backdrop-filter: blur(10px);
+}
+
+.category-btn:hover,
+.category-btn.active {
+    background: var(--gradient-button);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 20px var(--color-shadow-pink);
+}
+
+.category-btn .icon {
+    font-size: 14px;
+}
+
+/* ============================================
+   MAIN CONTENT LAYOUT
+   ============================================ */
+.arcade-content {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: var(--spacing-lg);
+    flex: 1;
+}
+
+@media (max-width: 1024px) {
+    .arcade-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ============================================
+   SECTION HEADERS
+   ============================================ */
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-md);
+}
+
+.section-title {
+    font-size: 0.7rem;
+    color: var(--color-text-secondary);
+    letter-spacing: 0.1em;
+}
+
+/* ============================================
+   DOMAIN CARDS GRID
+   ============================================ */
+.domains-section {
+    flex: 1;
+}
+
+.domains-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--spacing-md);
+}
+
+/* ============================================
+   DOMAIN CARD (Game Thumbnail Style)
+   ============================================ */
+.domain-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    cursor: pointer;
+    transition: all var(--transition-medium);
+    position: relative;
+    backdrop-filter: blur(10px);
+}
+
+.domain-card:hover {
+    border-color: var(--color-primary);
+    box-shadow:
+        0 0 20px var(--color-shadow-pink),
+        0 8px 32px rgba(0, 0, 0, 0.4);
+    transform: translateY(-6px) scale(1.02);
+}
+
+/* Staggered animation */
+.domain-card:nth-child(1) { animation: fadeInUp 0.5s ease 0.1s both; }
+.domain-card:nth-child(2) { animation: fadeInUp 0.5s ease 0.2s both; }
+.domain-card:nth-child(3) { animation: fadeInUp 0.5s ease 0.3s both; }
+.domain-card:nth-child(4) { animation: fadeInUp 0.5s ease 0.4s both; }
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Card Thumbnail Area */
+.card-thumbnail {
+    height: 120px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Domain-specific gradient backgrounds */
+.domain-card[data-domain-num="1"] .card-thumbnail {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.domain-card[data-domain-num="2"] .card-thumbnail {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.domain-card[data-domain-num="3"] .card-thumbnail {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.domain-card[data-domain-num="4"] .card-thumbnail {
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+}
+
+/* Domain number badge */
+.domain-badge {
+    position: absolute;
+    top: var(--spacing-xs);
+    left: var(--spacing-xs);
+    background: rgba(0, 0, 0, 0.6);
+    padding: 0.3rem 0.6rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.5rem;
+    color: var(--color-text-primary);
+    backdrop-filter: blur(5px);
+}
+
+/* Large domain number display */
+.domain-number-large {
+    font-size: 3rem;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.3);
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+/* Card Content Area */
+.card-content {
+    padding: var(--spacing-sm);
+}
+
+.domain-title {
+    font-size: 0.6rem;
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-xs);
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.domain-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: var(--spacing-xs);
+}
+
+.standards-badge {
+    font-size: 0.45rem;
+    color: var(--color-text-dim);
+    background: rgba(139, 92, 246, 0.2);
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--radius-sm);
+}
+
+.page-count {
+    font-size: 0.45rem;
+    color: var(--color-text-secondary);
+}
+
+/* Progress bar in card */
+.card-progress {
+    margin-top: var(--spacing-xs);
+}
+
+.card-progress .progress-bar {
+    height: 4px;
+}
+
+/* ============================================
+   SIDEBAR
+   ============================================ */
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+/* Progress Panel */
+.progress-panel {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-md);
+    backdrop-filter: blur(10px);
+}
+
+.panel-title {
+    font-size: 0.6rem;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-md);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.progress-list {
+    list-style: none;
+}
+
+.progress-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-xs) 0;
+    border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+    font-size: 0.5rem;
+}
+
+.progress-item:last-child {
+    border-bottom: none;
+}
+
+.progress-item-name {
+    color: var(--color-text-secondary);
+}
+
+.progress-item-value {
+    color: var(--color-primary);
+}
+
+/* Launch Button */
+.launch-section {
+    margin-top: auto;
+}
+
+.launch-btn {
+    width: 100%;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.7rem;
+    padding: var(--spacing-md);
+    background: var(--gradient-button);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-medium);
+    text-transform: uppercase;
+}
+
+.launch-btn:hover {
+    box-shadow:
+        0 0 30px var(--color-shadow-pink),
+        0 0 60px var(--color-shadow-pink);
+    transform: translateY(-2px);
+}
+
+.launch-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
 }
 
 /* ============================================
@@ -40,175 +355,20 @@
    ============================================ */
 .insert-coin-prompt {
     text-align: center;
-    margin: var(--spacing-xl) 0;
     padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+    transition: opacity 0.5s ease;
 }
 
 .insert-coin-prompt .pixel-text {
-    font-size: 1.2rem;
-    color: var(--color-warning);
-    margin-bottom: var(--spacing-sm);
-}
-
-/* ============================================
-   CABINETS GRID
-   ============================================ */
-.cabinets-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: var(--spacing-lg);
-    margin: var(--spacing-xl) 0;
-    flex: 1;
-}
-
-/* ============================================
-   CABINET CARD
-   ============================================ */
-.cabinet-card {
-    background-color: var(--color-bg-medium);
-    border: 3px solid var(--color-primary);
-    border-radius: var(--radius-md);
-    padding: var(--spacing-md);
-    position: relative;
-    transition: all var(--transition-medium);
-    cursor: pointer;
-    animation: fadeIn 0.6s ease;
-    animation-fill-mode: both;
-}
-
-/* Staggered animation for cards */
-.cabinet-card:nth-child(1) { animation-delay: 0.1s; }
-.cabinet-card:nth-child(2) { animation-delay: 0.2s; }
-.cabinet-card:nth-child(3) { animation-delay: 0.3s; }
-.cabinet-card:nth-child(4) { animation-delay: 0.4s; }
-
-.cabinet-card:hover {
-    transform: translateY(-5px);
-    box-shadow:
-        0 0 20px var(--color-shadow),
-        0 5px 30px rgba(0, 0, 0, 0.5);
-    border-color: var(--color-tertiary);
-}
-
-/* ============================================
-   CABINET SCREEN
-   ============================================ */
-.cabinet-screen {
-    background: linear-gradient(
-        135deg,
-        var(--color-bg-dark) 0%,
-        var(--color-bg-light) 100%
-    );
-    border: 2px solid var(--color-primary);
-    padding: var(--spacing-md);
-    margin-bottom: var(--spacing-md);
-    min-height: 280px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-}
-
-/* Screen scanline effect */
-.cabinet-screen::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: repeating-linear-gradient(
-        0deg,
-        rgba(0, 255, 65, 0.03),
-        rgba(0, 255, 65, 0.03) 1px,
-        transparent 1px,
-        transparent 3px
-    );
-    pointer-events: none;
-}
-
-.screen-content {
-    width: 100%;
-    text-align: center;
-    position: relative;
-    z-index: 1;
-}
-
-.domain-number {
-    font-size: 0.7rem;
+    font-size: 1rem;
     color: var(--color-tertiary);
-    margin-bottom: var(--spacing-sm);
-    letter-spacing: 0.15em;
-}
-
-.domain-title {
-    font-size: 0.9rem;
-    color: var(--color-primary);
-    margin-bottom: var(--spacing-md);
-    line-height: 1.4;
-    text-shadow: 0 0 10px var(--color-shadow);
-}
-
-.standards-list {
-    font-size: 0.6rem;
-    color: var(--color-text-dim);
-    margin-bottom: var(--spacing-lg);
-    letter-spacing: 0.05em;
-}
-
-/* ============================================
-   PROGRESS DISPLAY
-   ============================================ */
-.progress-display {
-    margin-top: var(--spacing-md);
-}
-
-.progress-text {
-    display: block;
-    font-size: 0.6rem;
-    color: var(--color-text-secondary);
     margin-bottom: var(--spacing-xs);
+    text-shadow: 0 0 10px var(--color-tertiary);
 }
 
-.cabinet-card .progress-bar {
-    margin-bottom: var(--spacing-sm);
-}
-
-/* ============================================
-   CABINET CONTROLS
-   ============================================ */
-.cabinet-controls {
-    display: flex;
-    justify-content: center;
-    margin-top: var(--spacing-md);
-}
-
-.start-button {
-    width: 100%;
-    font-size: 0.9rem;
-    padding: var(--spacing-md);
-    background-color: var(--color-bg-dark);
-    border: 3px solid var(--color-primary);
-}
-
-.start-button:hover {
-    background-color: var(--color-primary);
-    color: var(--color-bg-dark);
-}
-
-/* ============================================
-   COIN SLOT (decorative)
-   ============================================ */
-.coin-slot {
-    position: absolute;
-    top: var(--spacing-sm);
-    right: var(--spacing-sm);
-    width: 30px;
-    height: 6px;
-    background-color: var(--color-bg-dark);
-    border: 1px solid var(--color-primary);
-    border-radius: 3px;
+.insert-coin-prompt .small-text {
+    color: var(--color-text-dim);
 }
 
 /* ============================================
@@ -217,35 +377,49 @@
 .arcade-footer {
     text-align: center;
     margin-top: var(--spacing-xl);
-    padding-top: var(--spacing-lg);
-    border-top: 2px solid var(--color-border);
+    padding-top: var(--spacing-md);
+    border-top: 1px solid var(--color-border);
 }
 
 .arcade-footer p {
     color: var(--color-text-dim);
+    font-size: 0.5rem;
 }
 
 /* ============================================
    RESPONSIVE
    ============================================ */
 @media (max-width: 1024px) {
-    .cabinets-grid {
-        grid-template-columns: repeat(2, 1fr);
+    .sidebar {
+        order: -1;
+    }
+
+    .progress-panel {
+        display: none;
     }
 }
 
 @media (max-width: 768px) {
     .arcade-title {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
     }
 
-    .cabinets-grid {
-        grid-template-columns: 1fr;
-        gap: var(--spacing-md);
+    .category-nav {
+        gap: var(--spacing-sm);
     }
 
-    .cabinet-screen {
-        min-height: 220px;
+    .category-btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.5rem;
+    }
+
+    .domains-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-sm);
+    }
+
+    .card-thumbnail {
+        height: 100px;
     }
 }
 
@@ -254,7 +428,12 @@
         padding: var(--spacing-sm);
     }
 
-    .arcade-title {
-        font-size: 1.2rem;
+    .domains-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .category-nav {
+        flex-direction: column;
+        align-items: center;
     }
 }

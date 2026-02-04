@@ -8,52 +8,98 @@
 <div class="arcade-lobby">
     <!-- Header -->
     <header class="arcade-header">
-        <h1 class="arcade-title pixel-text">GAME DEV ARCADE</h1>
+        <h1 class="arcade-title pixel-text">
+            <span class="title-neon">NEON</span>
+            <span class="title-arcade">ARCADE</span>
+        </h1>
         <p class="arcade-subtitle">Professional Development Edition</p>
     </header>
 
+    <!-- Category Navigation -->
+    <nav class="category-nav">
+        <button class="category-btn active" data-category="all">
+            <span>🎮</span> All Domains
+        </button>
+        <button class="category-btn" data-category="design">
+            <span>🎨</span> Design
+        </button>
+        <button class="category-btn" data-category="programming">
+            <span>💻</span> Programming
+        </button>
+        <button class="category-btn" data-category="career">
+            <span>🏆</span> Career
+        </button>
+    </nav>
+
     <!-- Insert Coin Prompt (only shows on first visit) -->
     <div id="first-visit-prompt" class="insert-coin-prompt" style="display: none;">
-        <p class="pixel-text blink">INSERT QUARTER TO BEGIN</p>
-        <p class="small-text">Click any arcade cabinet</p>
+        <p class="pixel-text blink">SELECT A DOMAIN TO BEGIN</p>
+        <p class="small-text">Click any game card below</p>
     </div>
 
-    <!-- Domain Cabinets Grid -->
-    <div class="cabinets-grid">
-        {% for domain in domains %}
-        <div class="cabinet-card"
-             data-domain-id="{{ domain.id }}"
-             data-domain-num="{{ domain.number }}"
-             data-total-pages="{{ domain.total_pages }}">
+    <!-- Main Content Area -->
+    <div class="arcade-content">
+        <!-- Domains Section -->
+        <section class="domains-section">
+            <div class="section-header">
+                <h2 class="section-title pixel-text">LEARNING DOMAINS</h2>
+            </div>
 
-            <!-- Cabinet Screen -->
-            <div class="cabinet-screen">
-                <div class="screen-content">
-                    <div class="domain-number">DOMAIN {{ domain.number }}</div>
-                    <h2 class="domain-title">{{ domain.title }}</h2>
-                    <div class="standards-list">
-                        Standards: {{ domain.standards | join(', ') }}
+            <div class="domains-grid">
+                {% for domain in domains %}
+                <div class="domain-card"
+                     data-domain-id="{{ domain.id }}"
+                     data-domain-num="{{ domain.number }}"
+                     data-total-pages="{{ domain.total_pages }}">
+
+                    <!-- Card Thumbnail -->
+                    <div class="card-thumbnail">
+                        <span class="domain-badge pixel-text">Domain {{ domain.number }}</span>
+                        <span class="domain-number-large">{{ domain.number }}</span>
                     </div>
-                    <div class="progress-display">
-                        <span class="progress-text">0 / {{ domain.total_pages }}</span>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 0%;"></div>
+
+                    <!-- Card Content -->
+                    <div class="card-content">
+                        <h3 class="domain-title pixel-text">{{ domain.title }}</h3>
+                        <div class="domain-meta">
+                            <span class="standards-badge">{{ domain.standards | join(', ') }}</span>
+                            <span class="page-count">{{ domain.total_pages }} pages</span>
+                        </div>
+                        <div class="card-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 0%;"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <!-- Progress Panel -->
+            <div class="progress-panel">
+                <h3 class="panel-title pixel-text">
+                    <span>🏆</span> YOUR PROGRESS
+                </h3>
+                <ul class="progress-list">
+                    {% for domain in domains %}
+                    <li class="progress-item">
+                        <span class="progress-item-name">Domain {{ domain.number }}</span>
+                        <span class="progress-item-value" data-domain="{{ domain.number }}">0 / {{ domain.total_pages }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
             </div>
 
-            <!-- Cabinet Controls -->
-            <div class="cabinet-controls">
-                <button class="start-button pixel-text" data-domain="{{ domain.number }}">
-                    START
+            <!-- Launch Section -->
+            <div class="launch-section">
+                <button class="launch-btn pixel-text" id="launch-btn" disabled>
+                    🚀 Launch Game
                 </button>
             </div>
-
-            <!-- Coin Slot -->
-            <div class="coin-slot"></div>
-        </div>
-        {% endfor %}
+        </aside>
     </div>
 
     <!-- Footer Info -->
@@ -69,6 +115,56 @@
     // Initialize arcade lobby
     document.addEventListener('DOMContentLoaded', () => {
         ArcadeLobby.init();
+
+        // Domain card selection
+        let selectedDomain = null;
+        const launchBtn = document.getElementById('launch-btn');
+        const domainCards = document.querySelectorAll('.domain-card');
+
+        domainCards.forEach(card => {
+            card.addEventListener('click', () => {
+                // Remove selection from all cards
+                domainCards.forEach(c => c.style.borderColor = '');
+
+                // Select this card
+                card.style.borderColor = 'var(--color-primary)';
+                selectedDomain = parseInt(card.dataset.domainNum);
+
+                // Enable launch button
+                launchBtn.disabled = false;
+            });
+
+            // Double-click to launch directly
+            card.addEventListener('dblclick', () => {
+                const domainNum = parseInt(card.dataset.domainNum);
+                enterDomain(domainNum);
+            });
+        });
+
+        // Launch button click
+        launchBtn.addEventListener('click', () => {
+            if (selectedDomain) {
+                enterDomain(selectedDomain);
+            }
+        });
+
+        function enterDomain(domainNum) {
+            const domainProgress = StorageManager.getDomainProgress(domainNum);
+            const startPage = domainProgress?.current_page || 1;
+            QuarterAnimation.play(() => {
+                Navigation.goToDomain(domainNum, startPage);
+            });
+        }
+
+        // Category filter buttons
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                // In a full implementation, this would filter the domains
+            });
+        });
     });
 </script>
 {% endblock %}

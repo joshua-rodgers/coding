@@ -90,7 +90,7 @@ const QuarterAnimation = {
     },
 
     /**
-     * Draw the quarter
+     * Draw the quarter (neon pink/magenta theme)
      */
     drawQuarter(quarter) {
         const ctx = this.ctx;
@@ -99,29 +99,37 @@ const QuarterAnimation = {
         ctx.translate(quarter.x, quarter.y);
         ctx.rotate((quarter.rotation * Math.PI) / 180);
 
-        // Outer circle (gold)
+        // Glow effect
+        ctx.shadowBlur = 30;
+        ctx.shadowColor = '#ff00ff';
+
+        // Outer circle (neon pink)
         ctx.beginPath();
         ctx.arc(0, 0, quarter.size / 2, 0, Math.PI * 2);
-        ctx.fillStyle = '#FFD700';
+        const gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, quarter.size / 2);
+        gradient.addColorStop(0, '#ff66ff');
+        gradient.addColorStop(0.7, '#ff00ff');
+        gradient.addColorStop(1, '#cc00cc');
+        ctx.fillStyle = gradient;
         ctx.fill();
-        ctx.strokeStyle = '#DAA520';
+        ctx.strokeStyle = '#ff00ff';
         ctx.lineWidth = 3;
         ctx.stroke();
 
-        // Inner circle (darker)
+        // Inner circle (darker purple)
+        ctx.shadowBlur = 0;
         ctx.beginPath();
         ctx.arc(0, 0, quarter.size / 3, 0, Math.PI * 2);
-        ctx.fillStyle = '#B8860B';
+        ctx.fillStyle = '#8b5cf6';
         ctx.fill();
 
-        // Glow effect
-        ctx.shadowBlur = 20;
-        ctx.shadowColor = '#FFD700';
+        // Center dot (cyan accent)
         ctx.beginPath();
-        ctx.arc(0, 0, quarter.size / 2, 0, Math.PI * 2);
-        ctx.strokeStyle = '#FFD700';
-        ctx.lineWidth = 2;
-        ctx.stroke();
+        ctx.arc(0, 0, quarter.size / 8, 0, Math.PI * 2);
+        ctx.fillStyle = '#00ffff';
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = '#00ffff';
+        ctx.fill();
 
         ctx.restore();
     }

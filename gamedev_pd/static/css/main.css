@@ -1,31 +1,40 @@
 /* ============================================
    GAME DEV ARCADE PD - MAIN STYLES
+   Neon Arcade Theme
    ============================================ */
 
 /* ============================================
-   ROOT VARIABLES - RETRO COLOR PALETTE
+   ROOT VARIABLES - NEON COLOR PALETTE
    ============================================ */
 :root {
-    /* Primary Colors */
-    --color-bg-dark: #0a0a0f;
+    /* Background Colors */
+    --color-bg-dark: #0d0d1a;
     --color-bg-medium: #1a1a2e;
-    --color-bg-light: #16213e;
+    --color-bg-light: #252542;
+    --color-bg-card: rgba(30, 30, 60, 0.8);
 
-    /* Accent Colors */
-    --color-primary: #00ff41;      /* Matrix green */
-    --color-secondary: #ff006e;    /* Hot pink */
-    --color-tertiary: #00d9ff;     /* Cyan */
-    --color-warning: #ffbe0b;      /* Yellow */
+    /* Neon Accent Colors */
+    --color-primary: #ff00ff;      /* Magenta/Pink */
+    --color-secondary: #00ffff;    /* Cyan */
+    --color-tertiary: #ff6b00;     /* Orange */
+    --color-purple: #8b5cf6;       /* Purple */
+    --color-pink: #ec4899;         /* Hot pink */
+    --color-blue: #3b82f6;         /* Blue */
 
     /* Text Colors */
     --color-text-primary: #ffffff;
-    --color-text-secondary: #00ff41;
-    --color-text-dim: #888888;
+    --color-text-secondary: #a0a0c0;
+    --color-text-dim: #6b6b8a;
+
+    /* Gradients */
+    --gradient-title: linear-gradient(90deg, #ff00ff, #00ffff);
+    --gradient-button: linear-gradient(135deg, #ff00ff 0%, #8b5cf6 100%);
+    --gradient-card: linear-gradient(135deg, rgba(139, 92, 246, 0.3) 0%, rgba(236, 72, 153, 0.3) 100%);
 
     /* UI Elements */
-    --color-border: #00ff41;
-    --color-shadow: rgba(0, 255, 65, 0.3);
-    --color-highlight: rgba(0, 255, 65, 0.1);
+    --color-border: rgba(139, 92, 246, 0.5);
+    --color-shadow-pink: rgba(255, 0, 255, 0.4);
+    --color-shadow-cyan: rgba(0, 255, 255, 0.4);
 
     /* Spacing */
     --spacing-xs: 0.5rem;
@@ -35,8 +44,10 @@
     --spacing-xl: 3rem;
 
     /* Border Radius */
-    --radius-sm: 4px;
-    --radius-md: 8px;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-pill: 50px;
 
     /* Transitions */
     --transition-fast: 0.15s ease;
@@ -68,8 +79,43 @@ body {
     position: relative;
 }
 
+/* Circuit board background pattern */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        /* Circuit lines */
+        linear-gradient(90deg, rgba(139, 92, 246, 0.03) 1px, transparent 1px),
+        linear-gradient(rgba(139, 92, 246, 0.03) 1px, transparent 1px),
+        /* Dots at intersections */
+        radial-gradient(circle at 50px 50px, rgba(139, 92, 246, 0.1) 2px, transparent 2px);
+    background-size: 50px 50px, 50px 50px, 50px 50px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Gradient overlay at top */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 300px;
+    background: linear-gradient(180deg,
+        rgba(139, 92, 246, 0.15) 0%,
+        rgba(139, 92, 246, 0.05) 50%,
+        transparent 100%);
+    pointer-events: none;
+    z-index: 0;
+}
+
 /* ============================================
-   CRT SCREEN EFFECT
+   CRT SCREEN EFFECT (subtle)
    ============================================ */
 .crt-overlay {
     pointer-events: none;
@@ -79,38 +125,12 @@ body {
     width: 100%;
     height: 100%;
     z-index: 9999;
-
-    /* Scanlines */
     background: repeating-linear-gradient(
         0deg,
-        rgba(0, 0, 0, 0.15),
-        rgba(0, 0, 0, 0.15) 1px,
+        rgba(0, 0, 0, 0.05),
+        rgba(0, 0, 0, 0.05) 1px,
         transparent 1px,
         transparent 2px
-    );
-
-    /* Slight flicker */
-    animation: flicker 0.15s infinite;
-}
-
-@keyframes flicker {
-    0% { opacity: 0.97; }
-    50% { opacity: 0.99; }
-    100% { opacity: 0.97; }
-}
-
-/* Optional: More pronounced CRT curve effect */
-.crt-overlay::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(
-        ellipse at center,
-        transparent 0%,
-        rgba(0, 0, 0, 0.3) 100%
     );
 }
 
@@ -125,7 +145,7 @@ body {
     height: 100%;
     z-index: 9998;
     pointer-events: none;
-    display: none; /* Hidden until animation plays */
+    display: none;
 }
 
 #animation-canvas.active {
@@ -141,6 +161,8 @@ body {
     margin: 0 auto;
     padding: var(--spacing-md);
     min-height: 100vh;
+    position: relative;
+    z-index: 1;
 }
 
 /* ============================================
@@ -154,23 +176,29 @@ body {
 
 .small-text,
 .pixel-text.small {
-    font-size: 0.6rem;
+    font-size: 0.55rem;
     line-height: 1.4;
 }
 
 .medium-text {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
 }
 
 .large-text {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+}
+
+/* Gradient text effect */
+.gradient-text {
+    background: var(--gradient-title);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 /* ============================================
    TEXT EFFECTS
    ============================================ */
-
-/* Glowing text */
 .glow-text {
     text-shadow:
         0 0 5px var(--color-primary),
@@ -178,7 +206,13 @@ body {
         0 0 20px var(--color-primary);
 }
 
-/* Blinking text */
+.glow-text-cyan {
+    text-shadow:
+        0 0 5px var(--color-secondary),
+        0 0 10px var(--color-secondary),
+        0 0 20px var(--color-secondary);
+}
+
 .blink {
     animation: blink 1s infinite;
 }
@@ -192,45 +226,58 @@ body {
    BUTTONS
    ============================================ */
 .nav-button,
-.start-button {
+.btn {
     font-family: 'Press Start 2P', cursive;
-    font-size: 0.7rem;
+    font-size: 0.6rem;
     padding: var(--spacing-sm) var(--spacing-md);
-    background-color: var(--color-bg-medium);
-    color: var(--color-primary);
-    border: 2px solid var(--color-primary);
+    background: var(--color-bg-card);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-pill);
     cursor: pointer;
     text-decoration: none;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
     position: relative;
-    transition: all var(--transition-fast);
+    transition: all var(--transition-medium);
     text-transform: uppercase;
     letter-spacing: 0.05em;
 }
 
 .nav-button:hover,
-.start-button:hover {
-    background-color: var(--color-primary);
-    color: var(--color-bg-dark);
+.btn:hover {
+    background: var(--gradient-button);
+    border-color: var(--color-primary);
     box-shadow:
-        0 0 10px var(--color-primary),
-        0 0 20px var(--color-shadow);
+        0 0 20px var(--color-shadow-pink),
+        0 0 40px var(--color-shadow-pink);
     transform: translateY(-2px);
 }
 
-.nav-button:active,
-.start-button:active {
-    transform: translateY(0);
-    box-shadow:
-        0 0 5px var(--color-primary);
+.btn-primary {
+    background: var(--gradient-button);
+    border: none;
 }
 
-/* Disabled state */
-.nav-button.disabled,
-.start-button:disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
-    pointer-events: none;
+.btn-primary:hover {
+    box-shadow:
+        0 0 30px var(--color-shadow-pink),
+        0 0 60px var(--color-shadow-pink);
+}
+
+/* Category buttons (pill style) */
+.btn-category {
+    padding: 0.75rem 1.5rem;
+    background: rgba(30, 30, 60, 0.6);
+    border: 2px solid var(--color-border);
+    backdrop-filter: blur(10px);
+}
+
+.btn-category.active,
+.btn-category:hover {
+    background: var(--gradient-button);
+    border-color: var(--color-primary);
 }
 
 /* ============================================
@@ -239,9 +286,9 @@ body {
 .progress-bar,
 .progress-bar-container {
     width: 100%;
-    height: 20px;
-    background-color: var(--color-bg-dark);
-    border: 2px solid var(--color-primary);
+    height: 8px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: var(--radius-pill);
     position: relative;
     overflow: hidden;
 }
@@ -249,16 +296,12 @@ body {
 .progress-fill,
 .progress-bar-fill {
     height: 100%;
-    background: linear-gradient(
-        90deg,
-        var(--color-primary) 0%,
-        var(--color-tertiary) 100%
-    );
+    background: var(--gradient-button);
+    border-radius: var(--radius-pill);
     transition: width var(--transition-medium);
     position: relative;
 }
 
-/* Animated scanning effect on progress bar */
 .progress-fill::after,
 .progress-bar-fill::after {
     content: '';
@@ -270,7 +313,7 @@ body {
     background: linear-gradient(
         90deg,
         transparent,
-        rgba(255, 255, 255, 0.3),
+        rgba(255, 255, 255, 0.4),
         transparent
     );
     animation: progress-scan 2s infinite;
@@ -279,6 +322,25 @@ body {
 @keyframes progress-scan {
     0% { left: -100%; }
     100% { left: 200%; }
+}
+
+/* ============================================
+   CARDS
+   ============================================ */
+.card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    backdrop-filter: blur(10px);
+    transition: all var(--transition-medium);
+}
+
+.card:hover {
+    border-color: var(--color-primary);
+    box-shadow:
+        0 0 20px var(--color-shadow-pink),
+        0 8px 32px rgba(0, 0, 0, 0.3);
+    transform: translateY(-4px);
 }
 
 /* ============================================
@@ -317,6 +379,31 @@ body {
 }
 
 /* ============================================
+   ICONS (simple CSS icons)
+   ============================================ */
+.icon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    position: relative;
+}
+
+.icon-gamepad::before {
+    content: '🎮';
+    font-size: 16px;
+}
+
+.icon-trophy::before {
+    content: '🏆';
+    font-size: 16px;
+}
+
+.icon-star::before {
+    content: '⭐';
+    font-size: 16px;
+}
+
+/* ============================================
    RESPONSIVE UTILITIES
    ============================================ */
 @media (max-width: 768px) {
@@ -329,7 +416,7 @@ body {
     }
 
     .pixel-text {
-        font-size: 0.7rem;
+        font-size: 0.65rem;
     }
 
     .pixel-text.small {
