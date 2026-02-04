@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Game Dev Arcade PD{% endblock %}</title>
+
+    <!-- Google Fonts - Press Start 2P -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('gamedev_pd.static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('gamedev_pd.static', filename='css/animations.css') }}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- CRT Overlay Effect -->
+    <div class="crt-overlay"></div>
+
+    <!-- Canvas for animations (quarter drop, etc) -->
+    <canvas id="animation-canvas"></canvas>
+
+    <!-- Main Content -->
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- Core JavaScript -->
+    <script src="{{ url_for('gamedev_pd.static', filename='js/storage.js') }}"></script>
+    <script src="{{ url_for('gamedev_pd.static', filename='js/progress.js') }}"></script>
+    <script src="{{ url_for('gamedev_pd.static', filename='js/navigation.js') }}"></script>
+    <script src="{{ url_for('gamedev_pd.static', filename='js/main.js') }}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

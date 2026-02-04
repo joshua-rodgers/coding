@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('gamedev_pd.static', filename='css/domain.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="domain-page">
+    <!-- Navigation Bar -->
+    <nav class="nav-bar">
+        <div class="nav-left">
+            <a href="{{ url_for('gamedev_pd.arcade_lobby') }}" class="nav-button pixel-text" id="home-btn">
+                &larr; ARCADE
+            </a>
+        </div>
+
+        <div class="nav-center">
+            <span class="domain-label pixel-text">DOMAIN {{ domain_num }}</span>
+            <span class="page-counter pixel-text">PAGE {{ page_num }} / {{ total_pages }}</span>
+        </div>
+
+        <div class="nav-right">
+            {% if has_prev %}
+            <a href="{{ url_for('gamedev_pd.domain_page', domain_num=domain_num, page_num=page_num-1) }}"
+               class="nav-button pixel-text" id="prev-btn">
+                &#9668; PREV
+            </a>
+            {% endif %}
+
+            {% if has_next %}
+            <a href="{{ url_for('gamedev_pd.domain_page', domain_num=domain_num, page_num=page_num+1) }}"
+               class="nav-button pixel-text" id="next-btn">
+                NEXT &#9658;
+            </a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <!-- Page Content Container -->
+    <main class="page-content">
+        <!-- This is where content will be inserted in Phase 2+ -->
+        <div class="placeholder-content">
+            <div class="placeholder-box">
+                <h2 class="pixel-text">PLACEHOLDER</h2>
+                <p class="pixel-text small">Domain {{ domain_num }} - Page {{ page_num }}</p>
+                <p class="pixel-text small">{{ domain_title }}</p>
+                <p style="margin-top: 2rem; color: #888; font-size: 0.8rem;">
+                    Content will be added in Phase 2
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Progress Indicator -->
+    <div class="progress-indicator">
+        <div class="progress-bar-container">
+            <div class="progress-bar-fill" style="width: {{ (page_num / total_pages * 100) }}%;"></div>
+        </div>
+        <span class="progress-text pixel-text small">
+            {{ page_num }} / {{ total_pages }} pages completed
+        </span>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Page-specific data
+    const pageData = {
+        domainNum: {{ domain_num }},
+        pageNum: {{ page_num }},
+        totalPages: {{ total_pages }},
+        hasPrev: {{ has_prev | tojson }},
+        hasNext: {{ has_next | tojson }}
+    };
+
+    // Initialize page
+    document.addEventListener('DOMContentLoaded', () => {
+        DomainPage.init(pageData);
+    });
+</script>
+{% endblock %}

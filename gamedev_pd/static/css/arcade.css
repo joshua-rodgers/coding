@@ -1,0 +1,260 @@
+/* ============================================
+   ARCADE LOBBY STYLES
+   ============================================ */
+
+.arcade-lobby {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding: var(--spacing-lg);
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+.arcade-header {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+    animation: slideUp 0.6s ease;
+}
+
+.arcade-title {
+    font-size: 2rem;
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-sm);
+    text-shadow:
+        0 0 10px var(--color-primary),
+        0 0 20px var(--color-primary),
+        0 0 30px var(--color-shadow);
+    letter-spacing: 0.1em;
+}
+
+.arcade-subtitle {
+    font-size: 0.8rem;
+    color: var(--color-tertiary);
+    letter-spacing: 0.2em;
+}
+
+/* ============================================
+   INSERT COIN PROMPT
+   ============================================ */
+.insert-coin-prompt {
+    text-align: center;
+    margin: var(--spacing-xl) 0;
+    padding: var(--spacing-lg);
+}
+
+.insert-coin-prompt .pixel-text {
+    font-size: 1.2rem;
+    color: var(--color-warning);
+    margin-bottom: var(--spacing-sm);
+}
+
+/* ============================================
+   CABINETS GRID
+   ============================================ */
+.cabinets-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--spacing-lg);
+    margin: var(--spacing-xl) 0;
+    flex: 1;
+}
+
+/* ============================================
+   CABINET CARD
+   ============================================ */
+.cabinet-card {
+    background-color: var(--color-bg-medium);
+    border: 3px solid var(--color-primary);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-md);
+    position: relative;
+    transition: all var(--transition-medium);
+    cursor: pointer;
+    animation: fadeIn 0.6s ease;
+    animation-fill-mode: both;
+}
+
+/* Staggered animation for cards */
+.cabinet-card:nth-child(1) { animation-delay: 0.1s; }
+.cabinet-card:nth-child(2) { animation-delay: 0.2s; }
+.cabinet-card:nth-child(3) { animation-delay: 0.3s; }
+.cabinet-card:nth-child(4) { animation-delay: 0.4s; }
+
+.cabinet-card:hover {
+    transform: translateY(-5px);
+    box-shadow:
+        0 0 20px var(--color-shadow),
+        0 5px 30px rgba(0, 0, 0, 0.5);
+    border-color: var(--color-tertiary);
+}
+
+/* ============================================
+   CABINET SCREEN
+   ============================================ */
+.cabinet-screen {
+    background: linear-gradient(
+        135deg,
+        var(--color-bg-dark) 0%,
+        var(--color-bg-light) 100%
+    );
+    border: 2px solid var(--color-primary);
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    min-height: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Screen scanline effect */
+.cabinet-screen::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 255, 65, 0.03),
+        rgba(0, 255, 65, 0.03) 1px,
+        transparent 1px,
+        transparent 3px
+    );
+    pointer-events: none;
+}
+
+.screen-content {
+    width: 100%;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.domain-number {
+    font-size: 0.7rem;
+    color: var(--color-tertiary);
+    margin-bottom: var(--spacing-sm);
+    letter-spacing: 0.15em;
+}
+
+.domain-title {
+    font-size: 0.9rem;
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-md);
+    line-height: 1.4;
+    text-shadow: 0 0 10px var(--color-shadow);
+}
+
+.standards-list {
+    font-size: 0.6rem;
+    color: var(--color-text-dim);
+    margin-bottom: var(--spacing-lg);
+    letter-spacing: 0.05em;
+}
+
+/* ============================================
+   PROGRESS DISPLAY
+   ============================================ */
+.progress-display {
+    margin-top: var(--spacing-md);
+}
+
+.progress-text {
+    display: block;
+    font-size: 0.6rem;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.cabinet-card .progress-bar {
+    margin-bottom: var(--spacing-sm);
+}
+
+/* ============================================
+   CABINET CONTROLS
+   ============================================ */
+.cabinet-controls {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--spacing-md);
+}
+
+.start-button {
+    width: 100%;
+    font-size: 0.9rem;
+    padding: var(--spacing-md);
+    background-color: var(--color-bg-dark);
+    border: 3px solid var(--color-primary);
+}
+
+.start-button:hover {
+    background-color: var(--color-primary);
+    color: var(--color-bg-dark);
+}
+
+/* ============================================
+   COIN SLOT (decorative)
+   ============================================ */
+.coin-slot {
+    position: absolute;
+    top: var(--spacing-sm);
+    right: var(--spacing-sm);
+    width: 30px;
+    height: 6px;
+    background-color: var(--color-bg-dark);
+    border: 1px solid var(--color-primary);
+    border-radius: 3px;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.arcade-footer {
+    text-align: center;
+    margin-top: var(--spacing-xl);
+    padding-top: var(--spacing-lg);
+    border-top: 2px solid var(--color-border);
+}
+
+.arcade-footer p {
+    color: var(--color-text-dim);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 1024px) {
+    .cabinets-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .arcade-title {
+        font-size: 1.5rem;
+    }
+
+    .cabinets-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+    }
+
+    .cabinet-screen {
+        min-height: 220px;
+    }
+}
+
+@media (max-width: 480px) {
+    .arcade-lobby {
+        padding: var(--spacing-sm);
+    }
+
+    .arcade-title {
+        font-size: 1.2rem;
+    }
+}

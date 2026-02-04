@@ -1,0 +1,344 @@
+/* ============================================
+   GAME DEV ARCADE PD - MAIN STYLES
+   ============================================ */
+
+/* ============================================
+   ROOT VARIABLES - RETRO COLOR PALETTE
+   ============================================ */
+:root {
+    /* Primary Colors */
+    --color-bg-dark: #0a0a0f;
+    --color-bg-medium: #1a1a2e;
+    --color-bg-light: #16213e;
+
+    /* Accent Colors */
+    --color-primary: #00ff41;      /* Matrix green */
+    --color-secondary: #ff006e;    /* Hot pink */
+    --color-tertiary: #00d9ff;     /* Cyan */
+    --color-warning: #ffbe0b;      /* Yellow */
+
+    /* Text Colors */
+    --color-text-primary: #ffffff;
+    --color-text-secondary: #00ff41;
+    --color-text-dim: #888888;
+
+    /* UI Elements */
+    --color-border: #00ff41;
+    --color-shadow: rgba(0, 255, 65, 0.3);
+    --color-highlight: rgba(0, 255, 65, 0.1);
+
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+
+    /* Border Radius */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+
+    /* Transitions */
+    --transition-fast: 0.15s ease;
+    --transition-medium: 0.3s ease;
+    --transition-slow: 0.5s ease;
+}
+
+/* ============================================
+   RESET & BASE STYLES
+   ============================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    height: 100%;
+}
+
+body {
+    font-family: 'Press Start 2P', cursive;
+    background-color: var(--color-bg-dark);
+    color: var(--color-text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* ============================================
+   CRT SCREEN EFFECT
+   ============================================ */
+.crt-overlay {
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+
+    /* Scanlines */
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.15),
+        rgba(0, 0, 0, 0.15) 1px,
+        transparent 1px,
+        transparent 2px
+    );
+
+    /* Slight flicker */
+    animation: flicker 0.15s infinite;
+}
+
+@keyframes flicker {
+    0% { opacity: 0.97; }
+    50% { opacity: 0.99; }
+    100% { opacity: 0.97; }
+}
+
+/* Optional: More pronounced CRT curve effect */
+.crt-overlay::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+        ellipse at center,
+        transparent 0%,
+        rgba(0, 0, 0, 0.3) 100%
+    );
+}
+
+/* ============================================
+   ANIMATION CANVAS
+   ============================================ */
+#animation-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9998;
+    pointer-events: none;
+    display: none; /* Hidden until animation plays */
+}
+
+#animation-canvas.active {
+    display: block;
+}
+
+/* ============================================
+   CONTAINER & LAYOUT
+   ============================================ */
+.container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: var(--spacing-md);
+    min-height: 100vh;
+}
+
+/* ============================================
+   TYPOGRAPHY UTILITIES
+   ============================================ */
+.pixel-text {
+    font-family: 'Press Start 2P', cursive;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.small-text,
+.pixel-text.small {
+    font-size: 0.6rem;
+    line-height: 1.4;
+}
+
+.medium-text {
+    font-size: 0.8rem;
+}
+
+.large-text {
+    font-size: 1.2rem;
+}
+
+/* ============================================
+   TEXT EFFECTS
+   ============================================ */
+
+/* Glowing text */
+.glow-text {
+    text-shadow:
+        0 0 5px var(--color-primary),
+        0 0 10px var(--color-primary),
+        0 0 20px var(--color-primary);
+}
+
+/* Blinking text */
+.blink {
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+.nav-button,
+.start-button {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.7rem;
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: var(--color-bg-medium);
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    position: relative;
+    transition: all var(--transition-fast);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.nav-button:hover,
+.start-button:hover {
+    background-color: var(--color-primary);
+    color: var(--color-bg-dark);
+    box-shadow:
+        0 0 10px var(--color-primary),
+        0 0 20px var(--color-shadow);
+    transform: translateY(-2px);
+}
+
+.nav-button:active,
+.start-button:active {
+    transform: translateY(0);
+    box-shadow:
+        0 0 5px var(--color-primary);
+}
+
+/* Disabled state */
+.nav-button.disabled,
+.start-button:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* ============================================
+   PROGRESS BARS
+   ============================================ */
+.progress-bar,
+.progress-bar-container {
+    width: 100%;
+    height: 20px;
+    background-color: var(--color-bg-dark);
+    border: 2px solid var(--color-primary);
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-fill,
+.progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        var(--color-primary) 0%,
+        var(--color-tertiary) 100%
+    );
+    transition: width var(--transition-medium);
+    position: relative;
+}
+
+/* Animated scanning effect on progress bar */
+.progress-fill::after,
+.progress-bar-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    animation: progress-scan 2s infinite;
+}
+
+@keyframes progress-scan {
+    0% { left: -100%; }
+    100% { left: 200%; }
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+.text-center {
+    text-align: center;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.fade-in {
+    animation: fadeIn var(--transition-medium);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.slide-up {
+    animation: slideUp var(--transition-medium);
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================
+   RESPONSIVE UTILITIES
+   ============================================ */
+@media (max-width: 768px) {
+    html {
+        font-size: 14px;
+    }
+
+    .container {
+        padding: var(--spacing-sm);
+    }
+
+    .pixel-text {
+        font-size: 0.7rem;
+    }
+
+    .pixel-text.small {
+        font-size: 0.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    html {
+        font-size: 12px;
+    }
+}
