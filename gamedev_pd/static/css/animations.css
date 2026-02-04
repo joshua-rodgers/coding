@@ -1,0 +1,139 @@
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+/* Quarter drop animation (used when entering domain) */
+@keyframes quarterDrop {
+    0% {
+        transform: translateY(-100vh) rotate(0deg);
+        opacity: 1;
+    }
+    70% {
+        transform: translateY(50vh) rotate(720deg);
+        opacity: 1;
+    }
+    85% {
+        transform: translateY(45vh) rotate(720deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(50vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+.quarter-animation {
+    position: fixed;
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(
+        circle,
+        var(--color-warning) 0%,
+        var(--color-warning) 40%,
+        var(--color-bg-dark) 40%,
+        var(--color-bg-dark) 45%,
+        var(--color-warning) 45%
+    );
+    border-radius: 50%;
+    border: 3px solid var(--color-warning);
+    box-shadow:
+        0 0 20px var(--color-warning),
+        inset 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 10000;
+    animation: quarterDrop 1.5s ease-in forwards;
+}
+
+/* Screen flash effect */
+@keyframes screenFlash {
+    0%, 100% {
+        background-color: transparent;
+    }
+    50% {
+        background-color: rgba(0, 255, 65, 0.3);
+    }
+}
+
+.screen-flash {
+    animation: screenFlash 0.3s ease;
+}
+
+/* Pixel dissolve effect */
+@keyframes pixelDissolve {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.5;
+        transform: scale(1.05);
+        filter: blur(2px);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.95);
+        filter: blur(4px);
+    }
+}
+
+.pixel-dissolve {
+    animation: pixelDissolve 0.5s ease forwards;
+}
+
+/* Glitch effect */
+@keyframes glitch {
+    0% {
+        transform: translate(0);
+    }
+    20% {
+        transform: translate(-2px, 2px);
+    }
+    40% {
+        transform: translate(-2px, -2px);
+    }
+    60% {
+        transform: translate(2px, 2px);
+    }
+    80% {
+        transform: translate(2px, -2px);
+    }
+    100% {
+        transform: translate(0);
+    }
+}
+
+.glitch {
+    animation: glitch 0.3s ease;
+}
+
+/* Pulse glow */
+@keyframes pulseGlow {
+    0%, 100% {
+        box-shadow: 0 0 5px var(--color-primary);
+    }
+    50% {
+        box-shadow: 0 0 20px var(--color-primary),
+                    0 0 30px var(--color-shadow);
+    }
+}
+
+.pulse-glow {
+    animation: pulseGlow 2s ease infinite;
+}
+
+/* Loading dots */
+@keyframes loadingDots {
+    0%, 20% {
+        content: '.';
+    }
+    40% {
+        content: '..';
+    }
+    60%, 100% {
+        content: '...';
+    }
+}
+
+.loading-dots::after {
+    content: '';
+    animation: loadingDots 1.5s infinite;
+}

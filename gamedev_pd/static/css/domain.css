@@ -1,0 +1,153 @@
+/* ============================================
+   DOMAIN PAGE STYLES
+   ============================================ */
+
+.domain-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* ============================================
+   NAVIGATION BAR
+   ============================================ */
+.nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md);
+    background-color: var(--color-bg-medium);
+    border-bottom: 3px solid var(--color-primary);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    gap: var(--spacing-md);
+}
+
+.nav-left,
+.nav-center,
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.nav-center {
+    flex: 1;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.domain-label {
+    font-size: 0.7rem;
+    color: var(--color-tertiary);
+    margin-bottom: 0.25rem;
+}
+
+.page-counter {
+    font-size: 0.6rem;
+    color: var(--color-primary);
+}
+
+.nav-button {
+    font-size: 0.6rem;
+    padding: 0.7rem 1rem;
+    white-space: nowrap;
+}
+
+/* ============================================
+   PAGE CONTENT
+   ============================================ */
+.page-content {
+    flex: 1;
+    padding: var(--spacing-xl);
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* ============================================
+   PLACEHOLDER CONTENT (Phase 1 only)
+   ============================================ */
+.placeholder-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+}
+
+.placeholder-box {
+    text-align: center;
+    padding: var(--spacing-xl);
+    border: 3px dashed var(--color-primary);
+    background-color: var(--color-bg-medium);
+    border-radius: var(--radius-md);
+    max-width: 600px;
+}
+
+.placeholder-box h2 {
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-md);
+    font-size: 1.5rem;
+}
+
+.placeholder-box p {
+    margin: var(--spacing-sm) 0;
+    color: var(--color-text-dim);
+}
+
+/* ============================================
+   PROGRESS INDICATOR (bottom of page)
+   ============================================ */
+.progress-indicator {
+    padding: var(--spacing-md);
+    background-color: var(--color-bg-medium);
+    border-top: 3px solid var(--color-primary);
+}
+
+.progress-bar-container {
+    margin-bottom: var(--spacing-sm);
+}
+
+.progress-text {
+    display: block;
+    text-align: center;
+    color: var(--color-text-secondary);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+    .nav-bar {
+        flex-wrap: wrap;
+    }
+
+    .nav-center {
+        order: -1;
+        width: 100%;
+        margin-bottom: var(--spacing-sm);
+    }
+
+    .nav-button {
+        font-size: 0.5rem;
+        padding: 0.5rem 0.7rem;
+    }
+
+    .page-content {
+        padding: var(--spacing-md);
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-left,
+    .nav-right {
+        flex: 1;
+    }
+
+    .nav-button {
+        width: 100%;
+        text-align: center;
+    }
+}

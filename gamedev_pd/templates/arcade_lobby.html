@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('gamedev_pd.static', filename='css/arcade.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="arcade-lobby">
+    <!-- Header -->
+    <header class="arcade-header">
+        <h1 class="arcade-title pixel-text">GAME DEV ARCADE</h1>
+        <p class="arcade-subtitle">Professional Development Edition</p>
+    </header>
+
+    <!-- Insert Coin Prompt (only shows on first visit) -->
+    <div id="first-visit-prompt" class="insert-coin-prompt" style="display: none;">
+        <p class="pixel-text blink">INSERT QUARTER TO BEGIN</p>
+        <p class="small-text">Click any arcade cabinet</p>
+    </div>
+
+    <!-- Domain Cabinets Grid -->
+    <div class="cabinets-grid">
+        {% for domain in domains %}
+        <div class="cabinet-card"
+             data-domain-id="{{ domain.id }}"
+             data-domain-num="{{ domain.number }}"
+             data-total-pages="{{ domain.total_pages }}">
+
+            <!-- Cabinet Screen -->
+            <div class="cabinet-screen">
+                <div class="screen-content">
+                    <div class="domain-number">DOMAIN {{ domain.number }}</div>
+                    <h2 class="domain-title">{{ domain.title }}</h2>
+                    <div class="standards-list">
+                        Standards: {{ domain.standards | join(', ') }}
+                    </div>
+                    <div class="progress-display">
+                        <span class="progress-text">0 / {{ domain.total_pages }}</span>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cabinet Controls -->
+            <div class="cabinet-controls">
+                <button class="start-button pixel-text" data-domain="{{ domain.number }}">
+                    START
+                </button>
+            </div>
+
+            <!-- Coin Slot -->
+            <div class="coin-slot"></div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Footer Info -->
+    <footer class="arcade-footer">
+        <p class="pixel-text small">Arkansas Department of Education - 2026</p>
+    </footer>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('gamedev_pd.static', filename='js/quarter.js') }}"></script>
+<script>
+    // Initialize arcade lobby
+    document.addEventListener('DOMContentLoaded', () => {
+        ArcadeLobby.init();
+    });
+</script>
+{% endblock %}
